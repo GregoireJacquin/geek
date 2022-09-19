@@ -13,7 +13,7 @@ public class GameController {
     public ResponseEntity listGames(){
         Game game = new Game();
         game.setTitle("Northgard");
-        game.setCategory(new Category("4X"));
+        game.setCategory(new Category(3,"4X"));
         return new ResponseEntity(Arrays.asList(game), HttpStatus.OK);
     }
 
@@ -36,8 +36,8 @@ public class GameController {
     }
     @GetMapping("/categories")
     public ResponseEntity listCatgories() {
-        Category categories = new Category("DeckBuilding");
-        Category categories2 = new Category("Draft");
+        Category categories = new Category(1,"DeckBuilding");
+        Category categories2 = new Category(2,"Draft");
     return new ResponseEntity(Arrays.asList(categories,categories2),HttpStatus.OK);
     }
 }

@@ -12,9 +12,9 @@ import javax.validation.Valid;
 public class UserController {
 
     @PostMapping(value = "/users")
-    public ResponseEntity addUser(@Valid @RequestBody User user){
+    public ResponseEntity addUser(@Valid @RequestBody UserInfo user){
         //TODO persist user
-        User localUser = new User();
+        UserInfo localUser = new UserInfo();
         localUser.setEmail("greg@local.com");
         return new ResponseEntity(user, HttpStatus.CREATED);
     }

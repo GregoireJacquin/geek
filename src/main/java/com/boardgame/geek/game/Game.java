@@ -1,9 +1,9 @@
 package com.boardgame.geek.game;
 
+import com.boardgame.geek.user.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -25,6 +25,6 @@ public class Game {
     @Transient
     private int categoryId;
     @ManyToOne
-    private User user;
+    private UserInfo user;
     private boolean deleted;
 }
