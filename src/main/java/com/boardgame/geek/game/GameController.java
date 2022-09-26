@@ -4,17 +4,21 @@ import com.boardgame.geek.borrow.Borrow;
 import com.boardgame.geek.borrow.BorrowRepository;
 import com.boardgame.geek.user.UserInfo;
 import com.boardgame.geek.user.UserInfoRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 public class GameController {
     @Autowired
     GameRepository  gameRepository;
@@ -25,8 +29,8 @@ public class GameController {
     @Autowired
     BorrowRepository    borrowRepository;
     @GetMapping(value = "/games")
-    public ResponseEntity listGames(@RequestParam(required = false) GameStatus status){
-        Integer userConnectedId = this.getUserConnectedId();
+    public ResponseEntity listGames(@RequestParam(required = false) GameStatus status,Principal principal){
+        Integer userConnectedId = this.getUserConnectedId(principal);
         List<Game> games;
         if(status != null && status == GameStatus.FREE)
             games = gameRepository.findByStatusAndUserIdNotAndDeletedFalse(status,userConnectedId);
@@ -35,8 +39,8 @@ public class GameController {
         return new ResponseEntity(Arrays.asList(games), HttpStatus.OK);
     }
     @PostMapping(value = "/games")
-    public ResponseEntity addGame(@RequestBody @Valid Game game){
-        Integer userConnectedId = this.getUserConnectedId();
+    public ResponseEntity addGame(@RequestBody @Valid Game game, Principal principal){
+        Integer userConnectedId = this.getUserConnectedId(principal);
         Optional<UserInfo> user = userInfoRepository.findById(userConnectedId);
         Optional<Category> category = categoryRepository.findById(game.getCategoryId());
         if(category.isPresent()){
@@ -95,8 +99,11 @@ public class GameController {
             return new ResponseEntity("Book not found", HttpStatus.BAD_REQUEST);
         return new ResponseEntity(game.get(),HttpStatus.OK);
     }
-    public static Integer getUserConnectedId() {
-        //TODO Coding the party security
-        return 1;
+    public Integer getUserConnectedId(Principal  principal) {
+        if(!(principal instanceof UsernamePasswordAuthenticationToken))
+            throw new RuntimeException("User not found");
+        UsernamePasswordAuthenticationToken user = (UsernamePasswordAuthenticationToken) principal;
+        UserInfo oneByEmail = userInfoRepository.findOneByEmail(user.getName());
+        return  oneByEmail.getId();
     }
 }

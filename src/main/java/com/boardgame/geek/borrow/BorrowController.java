@@ -3,16 +3,19 @@ package com.boardgame.geek.borrow;
 import com.boardgame.geek.game.*;
 import com.boardgame.geek.user.UserInfo;
 import com.boardgame.geek.user.UserInfoRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 public class BorrowController {
     @Autowired
     UserInfoRepository userInfoRepository;
@@ -22,14 +25,17 @@ public class BorrowController {
     BorrowRepository    borrowRepository;
     @Autowired
     GameRepository      gameRepository;
+
+    @Autowired
+    GameController  gameController;
     @GetMapping(value = "/borrows")
-    public ResponseEntity getMyBorrow() {
-        List<Borrow> borrows = borrowRepository.findByBorrowerId(GameController.getUserConnectedId());
+    public ResponseEntity getMyBorrow(Principal principal) {
+        List<Borrow> borrows = borrowRepository.findByBorrowerId(gameController.getUserConnectedId(principal));
         return new ResponseEntity(borrows,HttpStatus.OK);
     }
     @PostMapping("/borrows/{gameId}")
-    public ResponseEntity addBorrow(@PathVariable("gameId") String gameId){
-        Integer userConnectedId = GameController.getUserConnectedId();
+    public ResponseEntity addBorrow(@PathVariable("gameId") String gameId,Principal principal){
+        Integer userConnectedId = gameController.getUserConnectedId(principal);
         Optional<UserInfo> borrower = userInfoRepository.findById(userConnectedId);
         Optional<Game> game = gameRepository.findById(Integer.valueOf(gameId));
         if(borrower.isPresent() && game.isPresent() && game.get().getGameStatus().equals(GameStatus.FREE)){
