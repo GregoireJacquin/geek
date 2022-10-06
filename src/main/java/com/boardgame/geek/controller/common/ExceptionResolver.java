@@ -1,4 +1,4 @@
-package com.boardgame.geek.common;
+package com.boardgame.geek.controller.common;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

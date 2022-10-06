@@ -1,5 +1,7 @@
-package com.boardgame.geek.game;
+package com.boardgame.geek.service.repository;
 
+import com.boardgame.geek.model.entity.Game;
+import com.boardgame.geek.model.GameStatus;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

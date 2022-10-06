@@ -1,5 +1,6 @@
-package com.boardgame.geek.borrow;
+package com.boardgame.geek.controller;
 
+import com.boardgame.geek.model.entity.Borrow;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

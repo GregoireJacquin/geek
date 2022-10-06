@@ -1,12 +1,9 @@
-package com.boardgame.geek.game;
+package com.boardgame.geek.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -16,4 +13,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String label;
+
+    @OneToMany(mappedBy = "category")
+    private Game game;
 }

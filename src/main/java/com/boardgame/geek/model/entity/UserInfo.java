@@ -1,4 +1,4 @@
-package com.boardgame.geek.user;
+package com.boardgame.geek.model.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,4 +21,6 @@ public class UserInfo {
     private String password;
     @Transient
     private String token;
+    @OneToMany(mappedBy = "user")
+    private UserInfo user;
 }

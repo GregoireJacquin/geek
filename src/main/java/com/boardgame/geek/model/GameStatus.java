@@ -1,3 +1,3 @@
-package com.boardgame.geek.game;
+package com.boardgame.geek.model;
 
 public enum GameStatus { FREE, BORROWED }

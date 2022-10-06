@@ -1,5 +1,6 @@
-package com.boardgame.geek.borrow;
+package com.boardgame.geek.service.repository;
 
+import com.boardgame.geek.model.entity.Borrow;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

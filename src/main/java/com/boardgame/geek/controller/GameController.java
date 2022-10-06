@@ -1,5 +1,7 @@
-package com.boardgame.geek.game;
+package com.boardgame.geek.controller;
 
+import com.boardgame.geek.model.entity.Category;
+import com.boardgame.geek.model.entity.Game;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

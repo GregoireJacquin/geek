@@ -1,7 +1,5 @@
-package com.boardgame.geek.borrow;
+package com.boardgame.geek.model.entity;
 
-import com.boardgame.geek.game.Game;
-import com.boardgame.geek.user.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,5 +1,6 @@
-package com.boardgame.geek.user;
+package com.boardgame.geek.controller;
 
+import com.boardgame.geek.model.entity.UserInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

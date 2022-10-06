@@ -1,6 +1,6 @@
-package com.boardgame.geek.game;
+package com.boardgame.geek.model.entity;
 
-import com.boardgame.geek.user.UserInfo;
+import com.boardgame.geek.model.GameStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
